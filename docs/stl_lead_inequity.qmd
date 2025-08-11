@@ -1,0 +1,43 @@
+---
+title: "Day 1 Task & Activities"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(here)
+library(janitor)
+library(skimr)
+```
+
+```{r}
+# Read in Data
+stl_lead <- read.csv(here::here("data", "stl_blood_lead.csv"))
+
+# Clean Name
+stl_lead <- stl_lead %>% clean_names()
+
+# Get Data Overview
+skimr::skim(stl_lead)
+
+# Summary Statistics
+summary(stl_lead)
+
+ggplot(stl_lead, aes(x = , y = )) +
+  geom_histogram() +
+  labs(title = "Distribution of Blood Lead Levels",
+       x = "Blood Lead Level", y = "Count")
+```
+
+```{r}
+# Calculate proportion of white residents per census tract
+stl_lead_prop <- stl_lead %>%
+  mutate(prop_white = (white / total_pop) * 100)
+
+# View first few rows
+head(stl_lead_prop)
+```
+
